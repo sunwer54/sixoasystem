@@ -102,6 +102,8 @@ public class ShiroConfig {
          * roles: 授予权限
          * 放行(anon)的url一定要放在authc之前设置
          */
+        //授予某资源访问权限
+        filterMap.put("/sdesss/fdf","perms[审核]");//访问/sdesss/fdf时，需要审核权限
         //放行
         filterMap.put("/login","anon");
         filterMap.put("/js/**","anon");
@@ -116,6 +118,8 @@ public class ShiroConfig {
         bean.setFilterChainDefinitionMap(filterMap);
         //没有登录身份时访问main页面,让其跳转到指定页面
         bean.setLoginUrl("/toLogin");  //--->requestMapping("/toLogin")
+        //没有访问uri的权限时，跳转的页面--->requestMapping("/noauthor")
+        bean.setUnauthorizedUrl("/noauthor");
         return bean;
     }
     /**
