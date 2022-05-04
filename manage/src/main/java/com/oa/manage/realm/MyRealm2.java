@@ -40,6 +40,7 @@ public class MyRealm2 extends AuthorizingRealm {
         exp.createCriteria().andEmpidEqualTo(employee.getEmpid());
         List<Power> powers = powerMapper.selectByExample(exp);
         String role = powers.get(0).getEmpid();
+
         //设置角色
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.addRole(role);

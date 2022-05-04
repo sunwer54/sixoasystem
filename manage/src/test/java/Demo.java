@@ -2,6 +2,7 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 
 public class Demo {
     public static void main(String[] args) {
+
         /*
         使用MD5加密
          */

@@ -64,6 +64,7 @@
         }
 
     %>
+
     <shiro:hasAnyRoles name="角色1,角色2,.....">
         <p>随随便便吧</p>
     </shiro:hasAnyRoles>
