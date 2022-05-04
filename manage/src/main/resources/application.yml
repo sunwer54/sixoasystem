@@ -1,0 +1,8 @@
+server:
+  port: 8080
+  #当前文件加载的时候自动关联application-mapper.yml文件,同时都会被spring加载
+spring:
+  profiles:
+    active: mapper
+  thymeleaf:
+    cache: false

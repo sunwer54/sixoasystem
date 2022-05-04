@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oa.mapper.IncomeMapper">
+    <select id="getIncomeDatas" resultType="com.oa.commons.IncomeData">
+        select indesc,sum(amount) totalmount from income group by indesc
+    </select>
+
+</mapper>

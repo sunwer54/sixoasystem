@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript" src="js/axios.js"></script>
+</head>
+
+<body>
+<div id="app">
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">人事管理</a></li>
+    <li><a href="#">修改部门信息</a></li>
+    </ul>
+    </div>
+    
+    <div class="formbody">
+    
+    <div class="formtitle"><span>基本信息</span></div>
+    
+    <ul class="forminfo">
+    <li><label>部门编号</label><input name="" type="text" class="dfinput" v-model="dept.deptno"/> </li>
+    <li><label>部门名称</label><input name="" type="text" class="dfinput"  v-model="dept.deptname"/></li>
+    <li><label>办公地点</label><input name="" type="text" class="dfinput" v-model="dept.location"/></li>
+    <li><label>&nbsp;</label><input name="" type="button" class="btn" @click="update()" value="确认保存"/></li>
+    </ul>
+    
+    
+    </div>
+</div>
+<script>
+    var vue = new Vue({
+        el: "#app",
+        data: {
+            dept:""
+        },
+        methods:{
+            init(){
+                //从页面中获取数据
+                var jsonDept = localStorage.getItem("dept");
+                //从json格式转成对象
+                this.dept = JSON.parse(jsonDept);
+            },
+            update(){  //往后台发送请求并提交数据,修改部门
+                //携带数据
+                var params = new URLSearchParams();
+                params.append("jsonDept",JSON.stringify(this.dept)); //jsonDept相当于表单中name的值
+                //发送axios请求
+                axios.post("updateDept",params).then(function (response) {
+                    var n = response.data;
+                    if(n==1) {
+                        alert("修改成功")
+                        //跳转到部门的列表页面
+                        window.location.href="deptList";
+                    }else{
+                        alert("修改失败")
+                    }
+                })
+
+            }
+        },
+        created(){
+            this.init();
+        }
+    });
+</script>
+</body>
+
+</html>

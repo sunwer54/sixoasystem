@@ -1,0 +1,11 @@
+#数据库的连接参数(注意当前配置文件的名称:application-mapper.yml)
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource   #使用阿里的德鲁伊高性能连接池
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/oa?serverTimezone=UTC&characterEncoding=utf-8
+    username: root
+    password: root
+#扫描****mapper.xml的映射文件所在的位置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
