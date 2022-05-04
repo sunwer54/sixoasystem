@@ -64,14 +64,12 @@
         }
 
     %>
-
     <shiro:hasAnyRoles name="角色1,角色2,.....">
         <p>随随便便吧</p>
     </shiro:hasAnyRoles>
     <div class="user">
         <span><a href="myInfo.html" target="rightFrame">${emp.realname}</a></span>
     </div>
-
 </div>
 
 </body>
