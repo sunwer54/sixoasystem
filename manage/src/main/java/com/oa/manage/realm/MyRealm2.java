@@ -48,6 +48,7 @@ public class MyRealm2 extends AuthorizingRealm {
         //把权限放入授权对象中
         info.addStringPermission(power);
         return info;
+
     }
 
     @Autowired

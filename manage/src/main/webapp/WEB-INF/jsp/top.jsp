@@ -62,7 +62,6 @@
             TUser tUser = (TUser)subject.getPrincipal();
             session.setAttribute("emp",tUser);
         }
-
     %>
     <shiro:hasAnyRoles name="角色1,角色2,.....">
         <p>随随便便吧</p>
