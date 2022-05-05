@@ -47,6 +47,7 @@ public class ShiroConfig {
         myRealm.setCredentialsMatcher(matcher);
         return myRealm;
     }
+
     @Bean
     public MyRealm2 userRealm2(@Qualifier("hashedCredentialsMatcher") HashedCredentialsMatcher matcher){
         MyRealm2 myRealm2 = new MyRealm2();
@@ -62,24 +63,21 @@ public class ShiroConfig {
     @Bean
     public DefaultWebSecurityManager securityManager(@Qualifier("userRealm") MyRealm myRealm,@Qualifier("userRealm2") MyRealm2 myRealm2){
         DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
-
-
-        //把自定义的Realm放入安全框架
-//        defaultWebSecurityManager.setRealm(myRealm);//单个realm源
-      //默认的认证策略是:AtLestOneSuccessfulStagegy,多个数据源里面只要有一个认证成功就可以
-
+        //默认的认证策略是:AtLestOneSuccessfulStagegy,多个数据源里面只要有一个认证成功就可以
         //指定认证策略,指定之后会覆盖shiro内部默认的认证方式
         ModularRealmAuthenticator authenticator = new ModularRealmAuthenticator();
-        authenticator.setAuthenticationStrategy(new AllSuccessfulStrategy());
-//        authenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
+        authenticator.setAuthenticationStrategy(new AllSuccessfulStrategy());//多个认证都成功
+        //authenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());//至少一个认证成功
         defaultWebSecurityManager.setAuthenticator(authenticator);
 
-
+        //把自定义的Realm放入安全框架
+        //defaultWebSecurityManager.setRealm(myRealm);//单个realm源
         Collection<Realm> c = new ArrayList<>();
         c.add(myRealm);
         c.add(myRealm2);
         defaultWebSecurityManager.setRealms(c); //多个realm
-        //把记住我管理器设置到shiro中
+
+        //把记住我管理器设置到shiro安全管理器中
         defaultWebSecurityManager.setRememberMeManager(rememberMeManager());
         return defaultWebSecurityManager;
     }
@@ -89,9 +87,8 @@ public class ShiroConfig {
     @Bean
     public ShiroFilterFactoryBean shiroFilter(@Qualifier("securityManager") DefaultWebSecurityManager securityManager){
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
+        //添加安全管理器到过滤器链。
         bean.setSecurityManager(securityManager);
-
-
         //使用shiro的过滤链的方式,来控制访问的资源;LinkedHashMap是有顺序的双列集合
         Map<String,String> filterMap = new LinkedHashMap<>();
         /**
@@ -139,7 +136,7 @@ public class ShiroConfig {
         cookieRememberMeManager.setCookie(cookie);
         /*
         给响应到浏览器的cookie数据加密
-        cookie的加密使用的是AES算法家吗秘钥长度为(128,256,512位)
+        cookie的加密使用的是AES算法加码秘钥长度为(128,256,512位)
         提供一个AES公开的秘钥:3AvVhmFLUs0KTA3Kprsdag==
          */
         try {
