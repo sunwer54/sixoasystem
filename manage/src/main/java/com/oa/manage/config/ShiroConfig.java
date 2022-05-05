@@ -113,7 +113,7 @@ public class ShiroConfig {
         filterMap.put("/logout","logout");//logout会把shiro的SessionManager中的登录者的身份数据销毁
         filterMap.put("/**","user"); //拦截所有的其他的访问,当开启了rememberMe是,下次访问可以直接登录
         bean.setFilterChainDefinitionMap(filterMap);
-        //没有登录身份时访问main页面,让其跳转到指定页面
+        //没有登录身份时访问需要认证的页面,则让其跳转到指定页面
         bean.setLoginUrl("/toLogin");  //--->requestMapping("/toLogin")
 
         //没有访问uri的权限时，跳转的页面--->requestMapping("/noauthor")
