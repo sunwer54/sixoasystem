@@ -116,7 +116,7 @@ public class ShiroConfig {
         //没有登录身份时访问需要认证的页面,则让其跳转到指定页面
         bean.setLoginUrl("/toLogin");  //--->requestMapping("/toLogin")
 
-        //没有访问uri的权限时，跳转的页面--->requestMapping("/noauthor")
+        //没有访问uri的权限时，跳转到的页面--->requestMapping("/noauthor")
         bean.setUnauthorizedUrl("/noauthor");
         return bean;
     }
